@@ -26,7 +26,7 @@ html {
   justify-content: center;
   height: 30vh;
   padding: 10px;
-  background-color: rgb(242, 211, 174);
+  background-color: #e3d2ba;
   background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
   object-fit: cover;
 }
@@ -90,8 +90,9 @@ ul li a:hover:after {
 /* fin efecto hover barra navegación */
 
 main {
-  background-color: rgb(240, 215, 179);
+  background-color: #f7f3e8;
   opacity: 0.9;
+  min-height: 70vh;
 }
 
 .buscador-general {
@@ -165,6 +166,7 @@ main {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  object-position: center;
   border-radius: 9px;
 }
 
@@ -175,10 +177,13 @@ main {
 }
 
 #products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));   --> También queda bien así. 
+   */
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 3rem;
   margin-top: 20px;
   margin-left: 20px;
 }
@@ -203,4 +208,27 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+footer {
+  background-color: #e3d2ba;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+footer ul {
+  display: flex;
+  gap: 2rem;
+}
+
+.social {
+  width: 20px;
+  height: 20px;
+}
+
+div h2 {
+  font-size: 1rem;
 }

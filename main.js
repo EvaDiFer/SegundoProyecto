@@ -12,7 +12,7 @@ const PRODUCTOS = [
     id: 2,
     vendedor: 'El Cafetal',
     precio: 4,
-    categoria: 'Capuchino',
+    categoria: 'Cappuchino',
     descripcion: 'Capuchino con leche caliente',
     imagen:
       'https://res.cloudinary.com/djhjuxyes/image/upload/v1685272170/PROYECTO-2/files/cafe_capuchino_avsp55.jpg',
@@ -31,7 +31,7 @@ const PRODUCTOS = [
     vendedor: 'Cafeteria del Pueblo',
     precio: 1.8,
     categoria: 'Cafe con leche',
-    descripcion: 'Café con leche caliente y suave',
+    descripcion: 'Disponible sin lactosa y avena',
     imagen:
       'https://res.cloudinary.com/djhjuxyes/image/upload/v1685272170/PROYECTO-2/files/cafe_con_leche_zrepbt.jpg',
   },
@@ -91,11 +91,20 @@ const PRODUCTOS = [
   },
 ];
 
-// PINTARPRODUCTOS
-const printProducts = () => {
-  const div$$ = document.getElementById('products');
+//COLOCAMOS NUESTRAS CONSTANTES ARRIBA PARA TENERLAS A MANO.
+const div$$ = document.getElementById('products');
+const generalInput$$ = document.getElementById('general');
+const seller$$ = document.getElementById('seller');
+const filterByPrice$$ = document.querySelector('#btn-search');
+const cleanButton$$ = document.querySelector('#btn-clean');
+const priceFilter$$ = document.querySelector('#price');
 
-  PRODUCTOS.forEach((producto) => {
+// // PINTARPRODUCTOS--
+const printProducts = (producto) => {
+  // const div$$ = document.getElementById('products');
+  div$$.innerHTML = '';
+
+  producto.forEach((producto) => {
     const template = `
       <div class="producto">
         <div class="imagen">
@@ -104,13 +113,15 @@ const printProducts = () => {
         <h3 class="categoria">${producto.categoria}</h3>
         <p class="descripcion">${producto.descripcion}</p>
         <p class="precio">Precio ${producto.precio}€</p>
-       
+
       </div>
     `;
 
     div$$.innerHTML += template;
   });
 };
+
+//FILTRO DE BÚSQUEDA CON DOS ARGUMENTOS. CATEGORÍA GENERAL Y VENDEDOR.
 
 const filterProducts = (categoryFilter, selectedSeller) => {
   const filteredProducts = PRODUCTOS.filter(
@@ -119,7 +130,6 @@ const filterProducts = (categoryFilter, selectedSeller) => {
       producto.categoria.toLowerCase().includes(categoryFilter)
   );
 
-  const div$$ = document.getElementById('products');
   div$$.innerHTML = '';
 
   if (filteredProducts.length === 0) {
@@ -129,39 +139,26 @@ const filterProducts = (categoryFilter, selectedSeller) => {
     mensaje.classList.add('not-found');
     div$$.appendChild(mensaje);
   } else {
-    filteredProducts.forEach((producto) => {
-      const template = `
-          <div class="producto">
-            <div class="imagen">
-              <img src="${producto.imagen}" class="img" alt="${producto.categoria}">
-            </div>
-            <h3 class="categoria">${producto.categoria}</h3>
-            <p class="descripcion">${producto.descripcion}</p>
-            <p class="precio">Precio ${producto.precio}€</p>
-          </div>
-        `;
-
-      div$$.innerHTML += template;
-    });
+    printProducts(filteredProducts);
   }
 };
 
+//CREACIÓN DE EVENTOS Y ESCUCHADORES
+
 const handleInputChange = (e) => {
   const categoryFilter = e.target.value.toLowerCase();
-  const selectedSeller = document.getElementById('seller').value;
+  const selectedSeller = seller$$.value;
   filterProducts(categoryFilter, selectedSeller);
 };
 
 const handleSelectChange = (e) => {
-  const categoryFilter = document.getElementById('general').value.toLowerCase();
+  const categoryFilter = generalInput$$.value.toLowerCase();
   const selectedSeller = e.target.value;
   filterProducts(categoryFilter, selectedSeller);
 };
 
-const generalInput$$ = document.getElementById('general');
 generalInput$$.addEventListener('input', handleInputChange);
 
-const seller$$ = document.getElementById('seller');
 seller$$.addEventListener('change', handleSelectChange);
 
 // BÚSQUEDA POR PRECIO
@@ -174,12 +171,18 @@ const getElementByPrice = (PRODUCTOS, maxPrice) => {
   printProducts(filterProductos);
 };
 
-const filterByPrice = document.querySelector('#btn-search');
-filterByPrice.addEventListener('click', () => {
-  const priceFilter = document.querySelector('#price');
-  const maxPrice = priceFilter.value;
+filterByPrice$$.addEventListener('click', () => {
+  const maxPrice = priceFilter$$.value;
 
   getElementByPrice(PRODUCTOS, maxPrice);
+});
+
+// FILTRO DE RESET
+
+cleanButton$$.addEventListener('click', () => {
+  printProducts(PRODUCTOS);
+
+  priceFilter$$.value = '';
 });
 
 // // MOSTRAR TODOS LOS PRODUCTOS
