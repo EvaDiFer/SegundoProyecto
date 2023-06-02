@@ -148,6 +148,12 @@ main {
   border-radius: 5px;
 }
 
+.buy {
+  background-color: #e3d2ba;
+  padding: 0.4rem;
+  border-radius: 10%;
+}
+
 .btn-search,
 .btn-clean {
   min-width: 80px;

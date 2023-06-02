@@ -113,6 +113,7 @@ const printProducts = (producto) => {
         <h3 class="categoria">${producto.categoria}</h3>
         <p class="descripcion">${producto.descripcion}</p>
         <p class="precio">Precio ${producto.precio}€</p>
+        <button class="buy"> Comprar</button>
 
       </div>
     `;
