@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap');
+
+:root {
+  --primary-color: #e3d2ba;
+  --secondary-color: #a88c61;
+  --terciary-color: #f68534;
+  --font-family: 'Oswald';
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  font-family: var(--font-family);
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--secondary-color);
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  text-transform: uppercase;
+}
+
+nav > a > img {
+  height: 60px;
+  width: 60px;
+}
+
+ul {
+  display: flex;
+  gap: 1.2rem;
+}
+
+a {
+  font-size: 20px;
+  color: whitesmoke;
+  position: relative;
+  letter-spacing: 2px;
+}
+
+/* efecto hover barra navegación */
+ul li a:before {
+  content: '';
+  width: 0;
+  height: 5px;
+  background-color: #d48d00;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  transition: all 0.5s;
+}
+
+ul li a:after {
+  content: '';
+  width: 0;
+  height: 5px;
+  background-color: rgb(72, 51, 18);
+  position: absolute;
+  top: 120%;
+  right: 0;
+  transition: all 0.5s;
+}
+
+ul li a:hover:before {
+  width: 50%;
+  transform: translateX(100%);
+}
+
+ul li a:hover:after {
+  width: 50%;
+  transform: translateX(-100%);
+}
+
+.hero {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.imagen-hero {
+  height: 100px;
+  width: 150px;
+}
+
+.btn-info {
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.buscadores {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.buscador {
+  width: 300px;
+  height: 30px;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  align-self: center;
+  text-align: center;
+}
+
+.sellers {
+  max-width: 30%;
+  border-radius: 15px;
+  padding: 0.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.precio,
+.btn-search,
+.btn-clean,
+.buy {
+  border-radius: 15px;
+  padding: 0.2rem;
+}
+
+#productos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.producto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
+
+.img {
+  height: 250px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.buy {
+  margin-bottom: 0.5rem;
+}
+
+footer {
+  background-color: var(--primary-color);
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+  height: 20vh;
+}
+
+footer ul {
+  display: flex;
+  gap: 2rem;
+}
+
+.social {
+  width: 20px;
+  height: 20px;
+}
+
+div h2 {
+  font-size: 1rem;
+}

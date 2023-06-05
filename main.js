@@ -1,3 +1,5 @@
+// PASO 1: AGREGAMOS NUESTRO ARRAY DE OBJETOS
+
 const PRODUCTOS = [
   {
     id: 1,
@@ -91,20 +93,76 @@ const PRODUCTOS = [
   },
 ];
 
-//COLOCAMOS NUESTRAS CONSTANTES ARRIBA PARA TENERLAS A MANO.
-const div$$ = document.getElementById('products');
-const generalInput$$ = document.getElementById('general');
-const seller$$ = document.getElementById('seller');
-const filterByPrice$$ = document.querySelector('#btn-search');
-const cleanButton$$ = document.querySelector('#btn-clean');
-const priceFilter$$ = document.querySelector('#price');
+const headerTemplate = () => {
+  const template = `
+    <nav class="navbar">
+      <a href="">
+        <img class="logo" src="./assets/coffee-7057030_1280.png" alt="logo-página-café">
+      </a>
+      <ul class="main-nav">
+        <li class="link">
+          <a href="#">Home</a>
+        </li>
+        <li class="link">
+          <a href="#">About</a>
+        </li>
+        <li class="link">
+          <a href="#productos">Shop</a>
+        </li>
+        <li class="link">
+          <a href="#contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  `;
 
-// // PINTARPRODUCTOS--
-const printProducts = (producto) => {
-  // const div$$ = document.getElementById('products');
-  div$$.innerHTML = '';
+  const headerElement = document.querySelector('header');
+  headerElement.innerHTML = template;
+};
 
-  producto.forEach((producto) => {
+headerTemplate();
+
+const heroTemplate = () => {
+  const template = `
+  <img src="./assets/coffee_specialities-01.png" alt="imagenhero" class="imagen-hero">
+
+  <h1>Discover the taste of real coffee</h1>
+  <button class="btn-info"> more info </button>
+`;
+
+  const heroElement = document.querySelector('.hero');
+  heroElement.innerHTML = template;
+};
+
+heroTemplate();
+
+const buscadoresTemplate = () => {
+  const template = `  <input placeholder="🔍Buscar producto..." class="buscador" id="general" />
+    <select class=sellers name="vendedores" id="seller">
+                <option value="All">Elige vendedor</option>
+                <option value="Cafeteria del Sol">Cafeteria del Sol</option>
+                <option value="El Cafetal">El Cafetal</option>
+                <option value="La Taza Dorada">La taza Dorada</option>
+                <option value="Cafeteria del Pueblo">Cafeteria del Pueblo</option>
+                <option value="La Esquina del Cafe">La esquina del Café</option>
+            </select>
+            <div class="filtroprecio">
+            <input type="number" name="buscador-precio" class="precio" id="price">
+            <button id="btn-search" class="btn-search">Precio máx</button>
+            <button id="btn-clean" class="btn-clean">Limpiar Filtros</button>
+        </div>`;
+
+  const buscadoresTemplate = document.querySelector('.buscadores');
+  buscadoresTemplate.innerHTML = template;
+};
+
+buscadoresTemplate();
+
+const products = document.querySelector('#productos');
+const printProducts = (productos) => {
+  products.innerHTML = '';
+
+  productos.forEach((producto) => {
     const template = `
       <div class="producto">
         <div class="imagen">
@@ -117,12 +175,45 @@ const printProducts = (producto) => {
 
       </div>
     `;
-
-    div$$.innerHTML += template;
+    products.innerHTML += template;
   });
 };
 
-//FILTRO DE BÚSQUEDA CON DOS ARGUMENTOS. CATEGORÍA GENERAL Y VENDEDOR.
+printProducts(PRODUCTOS);
+
+const footerTemplate = () => {
+  const template = ` <div id="contact" class="footer-links">
+  <ul>
+      <li>
+          <a href="#">
+              <img class="social" src="./assets/1486051940-twitersocialnetworkbrandlogo_79084.png"
+                  alt="Twitter">
+          </a>Twiter
+      </li>
+      <li>
+          <a href="#">
+              <img class=social src="./assets/Instagram_icon-icons.com_66804.png" alt="Instagram">
+          </a>Instagram
+      </li>
+      <li>
+          <a href="#">
+              <img class="social" src="./assets/Whatsapp_37229.png" alt="WhatsApp">
+          </a>Contact
+      </li>
+  </ul>
+</div>
+
+<div>
+  <h2>Created with love for Rock{theCode}🚀 </h2>
+</div>
+  `;
+  const footerTemplate = document.querySelector('footer');
+  footerTemplate.innerHTML = template;
+};
+
+footerTemplate();
+
+// FILTROS POR CATEGORIA Y POR VENDEDOR
 
 const filterProducts = (categoryFilter, selectedSeller) => {
   const filteredProducts = PRODUCTOS.filter(
@@ -131,6 +222,7 @@ const filterProducts = (categoryFilter, selectedSeller) => {
       producto.categoria.toLowerCase().includes(categoryFilter)
   );
 
+  const div$$ = document.getElementById('productos');
   div$$.innerHTML = '';
 
   if (filteredProducts.length === 0) {
@@ -144,26 +236,25 @@ const filterProducts = (categoryFilter, selectedSeller) => {
   }
 };
 
-//CREACIÓN DE EVENTOS Y ESCUCHADORES
-
 const handleInputChange = (e) => {
   const categoryFilter = e.target.value.toLowerCase();
-  const selectedSeller = seller$$.value;
+  const selectedSeller = document.getElementById('seller').value;
   filterProducts(categoryFilter, selectedSeller);
 };
 
 const handleSelectChange = (e) => {
-  const categoryFilter = generalInput$$.value.toLowerCase();
+  const categoryFilter = document.getElementById('general').value.toLowerCase();
   const selectedSeller = e.target.value;
   filterProducts(categoryFilter, selectedSeller);
 };
 
+const generalInput$$ = document.getElementById('general');
 generalInput$$.addEventListener('input', handleInputChange);
 
+const seller$$ = document.getElementById('seller');
 seller$$.addEventListener('change', handleSelectChange);
 
-// BÚSQUEDA POR PRECIO
-
+// FILTRO POR PRECIO
 const getElementByPrice = (PRODUCTOS, maxPrice) => {
   const filterProductos = PRODUCTOS.filter(
     (producto) => Number(producto.precio) <= Number(maxPrice)
@@ -172,19 +263,20 @@ const getElementByPrice = (PRODUCTOS, maxPrice) => {
   printProducts(filterProductos);
 };
 
-filterByPrice$$.addEventListener('click', () => {
-  const maxPrice = priceFilter$$.value;
+const filterByPrice = document.querySelector('#btn-search');
+filterByPrice.addEventListener('click', () => {
+  const priceFilter = document.querySelector('#price');
+  const maxPrice = priceFilter.value;
 
   getElementByPrice(PRODUCTOS, maxPrice);
 });
 
 // FILTRO DE RESET
+const priceFilter$$ = document.querySelector('#price');
+const cleanButton$$ = document.querySelector('#btn-clean');
 
 cleanButton$$.addEventListener('click', () => {
   printProducts(PRODUCTOS);
 
   priceFilter$$.value = '';
 });
-
-// // MOSTRAR TODOS LOS PRODUCTOS
-printProducts(PRODUCTOS);
